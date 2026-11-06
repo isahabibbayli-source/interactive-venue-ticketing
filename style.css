@@ -100,3 +100,24 @@ button:disabled {
         font-size: 11px;
     }
 }
+
+.seat.selected {
+    background-color: #f59e0b;
+}
+
+.seat.selected:hover {
+    background-color: #d97706;
+}
+
+.seat.unavailable {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.seat.unavailable:hover {
+    background-color: #94a3b8;
+}
+
+#seat-info {
+    line-height: 1.8;
+}
