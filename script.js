@@ -27,3 +27,29 @@ sections.forEach(function(section) {
 
 console.log("Total seats:", seats.length);
 console.log(seats);
+
+function displaySeats() {
+    sections.forEach(function(section) {
+
+        let container = document.getElementById(
+            section.name.toLowerCase() + "-seats"
+        );
+
+        container.innerHTML = "";
+
+        seats.forEach(function(seat) {
+            if (seat.section === section.name) {
+
+                let button = document.createElement("button");
+
+                button.textContent = seat.number;
+                button.className = "seat";
+                button.title = seat.id;
+
+                container.appendChild(button);
+            }
+        });
+    });
+}
+
+displaySeats();
