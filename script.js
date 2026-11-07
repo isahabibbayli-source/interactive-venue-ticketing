@@ -100,3 +100,52 @@ function inspectSeat(seat) {
 
     displaySeats();
 }
+
+let zoom = 1;
+let moveX = 0;
+let moveY = 0;
+
+const venueMap = document.getElementById("venue-map");
+
+function updateMap() {
+    venueMap.style.transform =
+        "translate(" + moveX + "px, " + moveY + "px) " +
+        "scale(" + zoom + ")";
+}
+
+document.getElementById("zoom-in").addEventListener("click", function() {
+    zoom = Math.min(zoom + 0.2, 2);
+    updateMap();
+});
+
+document.getElementById("zoom-out").addEventListener("click", function() {
+    zoom = Math.max(zoom - 0.2, 0.6);
+    updateMap();
+});
+
+document.getElementById("move-up").addEventListener("click", function() {
+    moveY -= 50;
+    updateMap();
+});
+
+document.getElementById("move-down").addEventListener("click", function() {
+    moveY += 50;
+    updateMap();
+});
+
+document.getElementById("move-left").addEventListener("click", function() {
+    moveX -= 50;
+    updateMap();
+});
+
+document.getElementById("move-right").addEventListener("click", function() {
+    moveX += 50;
+    updateMap();
+});
+
+document.getElementById("reset-view").addEventListener("click", function() {
+    zoom = 1;
+    moveX = 0;
+    moveY = 0;
+    updateMap();
+});

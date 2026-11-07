@@ -18,7 +18,22 @@
 <main>
     <h2>Choose Your Seat</h2>
 
-    <section class="theatre">
+    
+<section class="theatre">
+
+    <div class="map-controls">
+        <button id="zoom-in">Zoom +</button>
+        <button id="zoom-out">Zoom -</button>
+        <button id="move-up">Up ↑</button>
+        <button id="move-down">Down ↓</button>
+        <button id="move-left">Left ←</button>
+        <button id="move-right">Right →</button>
+        <button id="reset-view">Reset</button>
+    </div>
+
+    <div class="map-window">
+        <div id="venue-map">
+
         <div class="stage">STAGE</div>
 
         <h3>VIP Section - 45 AZN</h3>
@@ -29,6 +44,8 @@
 
         <h3>Economy Section - 20 AZN</h3>
         <div id="economy-seats"></div>
+            </div>
+        </div>  
     </section>
 
     <section class="details">
