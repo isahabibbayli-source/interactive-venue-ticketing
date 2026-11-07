@@ -9,6 +9,8 @@ let seats = [];
 
 let selectedSeat = null;
 
+let cart = [];
+
 const unavailableSeats = [
     "VIP-1-3",
     "VIP-2-7",
@@ -67,6 +69,10 @@ function displaySeats() {
                     button.classList.add("selected");
                 }
 
+                if (cart.includes(seat.id)) {
+                button.classList.add("in-cart");
+                }
+
                 button.addEventListener("click", function() {
                     inspectSeat(seat);
                 });
@@ -79,6 +85,7 @@ function displaySeats() {
 
 
 displaySeats();
+
 
 function inspectSeat(seat) {
     if (!seat.available) {
@@ -96,10 +103,16 @@ function inspectSeat(seat) {
         "Price: " + seat.price + " AZN";
 
     let addButton = document.getElementById("add-to-cart");
-    addButton.disabled = false;
+
+    if (cart.includes(seat.id)) {
+        addButton.disabled = true;
+    } else {
+        addButton.disabled = false;
+    }
 
     displaySeats();
 }
+
 
 let zoom = 1;
 let moveX = 0;
@@ -149,3 +162,76 @@ document.getElementById("reset-view").addEventListener("click", function() {
     moveY = 0;
     updateMap();
 });
+
+document.getElementById("add-to-cart").addEventListener("click", function() {
+    if (selectedSeat === null) {
+        return;
+    }
+
+    if (!selectedSeat.available) {
+        return;
+    }
+
+    if (cart.includes(selectedSeat.id)) {
+        return;
+    }
+
+    cart.push(selectedSeat.id);
+
+    document.getElementById("add-to-cart").disabled = true;
+
+    displaySeats();
+    displayCart();
+});
+
+function displayCart() {
+    let cartItems = document.getElementById("cart-items");
+    let total = 0;
+
+    cartItems.innerHTML = "";
+
+    cart.forEach(function(id) {
+        let seat = seats.find(function(item) {
+            return item.id === id;
+        });
+
+        if (seat) {
+            let item = document.createElement("p");
+            item.textContent = seat.id + " - " + seat.price + " AZN ";
+
+            let removeButton = document.createElement("button");
+            removeButton.textContent = "Remove";
+
+            removeButton.addEventListener("click", function() {
+                removeFromCart(seat.id);
+            });
+
+            item.appendChild(removeButton);
+            cartItems.appendChild(item);
+
+            total += seat.price;
+        }
+    });
+
+    document.getElementById("total").textContent = total;
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(function(item) {
+        return item !== id;
+    });
+
+    if (selectedSeat && selectedSeat.id === id) {
+        selectedSeat = null;
+
+        document.getElementById("seat-info").textContent =
+            "No seat selected";
+
+        document.getElementById("add-to-cart").disabled = true;
+    }
+
+    displayCart();
+    displaySeats();
+}
+
+displayCart();

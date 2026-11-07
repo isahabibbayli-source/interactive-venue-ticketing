@@ -152,3 +152,24 @@ button:disabled {
     transform-origin: center center;
     transition: transform 0.2s ease;
 }
+
+.seat.in-cart,
+.seat.in-cart:hover {
+    background-color: #2563eb;
+}
+
+#cart-items p {
+    background-color: #f1f5f9;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+#cart-items button {
+    background-color: #ef4444;
+    margin-left: 15px;
+}
+
+#cart-items button:hover {
+    background-color: #dc2626;
+}
