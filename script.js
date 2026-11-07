@@ -9,7 +9,11 @@ let seats = [];
 
 let selectedSeat = null;
 
+
 let cart = [];
+
+
+
 
 const unavailableSeats = [
     "VIP-1-3",
@@ -40,7 +44,26 @@ sections.forEach(function(section) {
     }
 });
 
+try {
+    const savedCart = JSON.parse(
+        localStorage.getItem("theatreCart")
+    );
+
+    if (Array.isArray(savedCart)) {
+        cart = savedCart.filter(function(id) {
+            return seats.some(function(seat) {
+                return seat.id === id && seat.available;
+            });
+        });
+
+        cart = [...new Set(cart)];
+    }
+} catch (error) {
+    cart = [];
+}
+
 console.log("Total seats:", seats.length);
+
 console.log(seats);
 
 
@@ -178,6 +201,8 @@ document.getElementById("add-to-cart").addEventListener("click", function() {
 
     cart.push(selectedSeat.id);
 
+    localStorage.setItem("theatreCart", JSON.stringify(cart));
+
     document.getElementById("add-to-cart").disabled = true;
 
     displaySeats();
@@ -220,6 +245,8 @@ function removeFromCart(id) {
     cart = cart.filter(function(item) {
         return item !== id;
     });
+
+    localStorage.setItem("theatreCart", JSON.stringify(cart));
 
     if (selectedSeat && selectedSeat.id === id) {
         selectedSeat = null;
