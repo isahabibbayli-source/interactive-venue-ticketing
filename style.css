@@ -300,3 +300,27 @@ main {
         font-size: 11px;
     }
 }
+
+/* mouse Bonus */
+
+.map-window {
+    cursor: grab;
+    touch-action: none;
+}
+
+.map-window.dragging {
+    cursor: grabbing;
+    user-select: none;
+}
+
+.map-window.dragging #venue-map {
+    transition: none;
+}
+
+.seat {
+    cursor: pointer;
+}
+
+.seat.unavailable {
+    cursor: not-allowed;
+}

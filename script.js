@@ -262,3 +262,70 @@ function removeFromCart(id) {
 }
 
 displayCart();
+
+const mapWindow = document.querySelector(".map-window");
+
+mapWindow.addEventListener("wheel", function(event) {
+    event.preventDefault();
+
+    if (event.deltaY < 0) {
+        zoom = Math.min(zoom + 0.1, 2);
+    } else {
+        zoom = Math.max(zoom - 0.1, 0.6);
+    }
+
+    updateMap();
+}, { passive: false });
+
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+
+mapWindow.addEventListener("pointerdown", function(event) {
+    if (event.button !== 0) {
+        return;
+    }
+
+    if (event.target.closest("button")) {
+        return;
+    }
+
+    isDragging = true;
+    startX = event.clientX - moveX;
+    startY = event.clientY - moveY;
+
+    mapWindow.setPointerCapture(event.pointerId);
+    mapWindow.classList.add("dragging");
+});
+
+mapWindow.addEventListener("pointermove", function(event) {
+    if (!isDragging) {
+        return;
+    }
+
+    moveX = event.clientX - startX;
+    moveY = event.clientY - startY;
+
+    updateMap();
+});
+
+function stopDragging(event) {
+    if (!isDragging) {
+        return;
+    }
+
+    isDragging = false;
+    mapWindow.classList.remove("dragging");
+
+    if (mapWindow.hasPointerCapture(event.pointerId)) {
+        mapWindow.releasePointerCapture(event.pointerId);
+    }
+}
+
+mapWindow.addEventListener("pointerup", stopDragging);
+mapWindow.addEventListener("pointercancel", stopDragging);
+
+mapWindow.addEventListener("lostpointercapture", function() {
+    isDragging = false;
+    mapWindow.classList.remove("dragging");
+});
