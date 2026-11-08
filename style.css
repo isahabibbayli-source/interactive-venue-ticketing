@@ -173,3 +173,130 @@ button:disabled {
 #cart-items button:hover {
     background-color: #dc2626;
 }
+
+/* Responsive Design */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+main {
+    width: 100%;
+    max-width: 1100px;
+}
+
+.theatre,
+.details,
+.cart {
+    width: 100%;
+}
+
+.map-window {
+    overflow: auto;
+    height: 650px;
+}
+
+#venue-map {
+    min-width: 760px;
+}
+
+.map-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.map-controls button {
+    min-width: 85px;
+}
+
+#cart-items p {
+    overflow-wrap: anywhere;
+}
+
+/* Tablet */
+
+@media (max-width: 768px) {
+    header {
+        padding: 20px 10px;
+    }
+
+    header h1 {
+        font-size: 26px;
+    }
+
+    main {
+        margin: 15px auto;
+        padding: 10px;
+    }
+
+    .theatre,
+    .details,
+    .cart {
+        padding: 15px;
+    }
+
+    .map-window {
+        height: 500px;
+    }
+
+    .map-controls button {
+        font-size: 12px;
+        padding: 10px;
+        min-width: 70px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 23px;
+    }
+
+    main h2 {
+        font-size: 21px;
+    }
+
+    .theatre,
+    .details,
+    .cart {
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .map-window {
+        height: 420px;
+    }
+
+    #venue-map {
+        min-width: 760px;
+    }
+
+    .map-controls {
+        gap: 6px;
+    }
+
+    .map-controls button {
+        padding: 9px 6px;
+        font-size: 11px;
+        min-width: 65px;
+    }
+
+    #cart-items button {
+        margin: 8px 0 0;
+    }
+
+    #cart-items p {
+        padding: 10px;
+    }
+
+    .seat {
+        font-size: 11px;
+    }
+}
